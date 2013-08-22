@@ -1,0 +1,119 @@
+<html>
+	<head>
+		<title>My Awesome Page</title>
+			<script type="text/javascript" charset="utf-8"> 
+            //this version allows you to click on text and color the image of a cell.  
+				function changeStyle(selectorText, styleProperty, propertyValue){
+					var theRules = new Array(); 
+						if (document.styleSheets[0].cssRules) { 
+            	theRules = document.styleSheets[0].cssRules; 
+            } 
+            else if (document.styleSheets[0].rules) { 
+            	theRules = document.styleSheets[0].rules; 
+            }
+	      		else{
+            	alert("No Stylesheet Present");}
+
+            for (n in theRules) {
+							if (theRules[n].selectorText === selectorText) {
+			   				var theStyleProperties=theRules[n].style;
+								if (theStyleProperties.fill !== "#000000"){
+										theStyleProperties.setProperty(styleProperty,"#000000", 'important'); 
+								}
+								else{
+                	theStyleProperties.setProperty(styleProperty,propertyValue, 'important'); 
+								} 
+              }
+                           
+            }
+						mixColors(theRules)
+	     }
+			 function mixColors(theRules){
+				var total_red = 0;
+				var total_green= 0;
+				var total_blue = 0; 
+				for (var i = 1; i <=9; i++){
+					var color = theRules[i].style.getPropertyValue('fill');
+					console.log(color);
+					console.log(color.substr(1,2));	
+					console.log(color.substr(3,2));
+					console.log(color.substr(5,2));
+					total_red   += parseInt(color.substr(1,2), 16);
+					total_green += parseInt(color.substr(3,2), 16);
+					total_blue  += parseInt(color.substr(5,2), 16); 
+				}
+				total_red   = Math.floor(total_red  /3);	
+				total_green = Math.floor(total_green/3);
+				total_blue  = Math.floor(total_blue /3);
+				console.log(total_red + ", " + total_green + ", " + total_blue );	
+				
+				theRules[10].style.setProperty("fill","rgb(" + total_red + ", " + total_green + ", " + total_blue + ")");
+			}
+    </script> 
+    </head>
+    <body>
+ 
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" x = "0px" y = "0px">
+	<style type="text/css" >
+      <![CDATA[
+
+        circle {
+           opacity:1; 
+           fill:black; 
+           stroke:rgb(0,0,0); 
+           stroke-width:3.000000; 
+           stroke-linecap:round; 
+           stroke-linejoin:round; 
+           stroke-miterlimit:10;
+        }
+ 				circle.red33 { 
+           fill:black; 
+        }
+  
+        circle.red66{
+        fill:black;
+        }
+        
+        circle.red100{
+        fill:black;
+        }
+        circle.green33{
+        fill:black;
+        }
+        circle.green66{
+        fill:black;
+        }
+				circle.green100{
+        fill:black;
+        }
+        circle.blue33{
+        fill:black;
+        }
+				circle.blue66{
+        fill:black;
+        }
+				circle.blue100{
+        fill:black;
+        } 
+				circle.result{
+				fill:black;
+				}
+      ]]>
+    </style>
+
+
+  <circle class="red100" 	 cx="100" cy="50"  r="40" onclick="changeStyle('circle.red100', 	'fill', '#FF0000')"/>
+	<circle class="green100" cx="200" cy="50"  r="40" onclick="changeStyle('circle.green100', 'fill', '#00FF00')"/>
+	<circle class="blue100"	 cx="300" cy="50"  r="40" onclick="changeStyle('circle.blue100', 	'fill', '#0000FF')"/> 
+	<circle class="red66"    cx="100" cy="150" r="40" onclick="changeStyle('circle.red66', 		'fill', '#FF0000')"/> 
+	<circle class="green66"  cx="200" cy="150" r="40" onclick="changeStyle('circle.green66', 	'fill', '#00FF00')"/> 
+	<circle class="blue66"   cx="300" cy="150" r="40" onclick="changeStyle('circle.blue66', 	'fill', '#0000FF')"/> 
+	<circle class="red33"    cx="100" cy="250" r="40" onclick="changeStyle('circle.red33',		'fill', '#FF0000')"/> 
+	<circle class="green33"  cx="200" cy="250" r="40" onclick="changeStyle('circle.green33', 	'fill', '#00FF00')"/> 
+	<circle class="blue33"   cx="300" cy="250" r="40" onclick="changeStyle('circle.blue33', 	'fill', '#0000FF')"/> 
+
+	<circle class="result"	 cx="450" cy="150" r="40"/>
+</svg>
+
+</body>
+</html>
